@@ -25,6 +25,8 @@ class Config:
 
 #Relative path
 dirname = os.path.dirname(__file__)
+# Create output folder
+os.makedirs(os.path.join(dirname, 'output'), exist_ok=True)
 
 # Delete the content of the folder output
 folder = dirname+'\\output'
