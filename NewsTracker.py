@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 #Config class with the data of each news site
 class Config:
-    def __init__(self, main_url, url, news_tag, news_type, news_class, news_content_tag, news_content_type, news_content_class, imgs_tag, img_type, imgs_class, title_tag, title_type, title_class, save_path):
+    def __init__(self, main_url, url, news_tag, news_type, news_class, news_content_tag, news_content_type, news_content_class, imgs_tag, img_type, imgs_class, title_tag, title_type, title_class, subtitle_tag, subtitle_type, subtitle_class, save_path):
         self.main_url = main_url
         self.url = url
         self.news_tag = news_tag
@@ -18,6 +18,9 @@ class Config:
         self.title_tag = title_tag
         self.title_type = title_type
         self.title_class = title_class
+        self.subtitle_tag = subtitle_tag
+        self.subtitle_type = subtitle_type
+        self.subtitle_class = subtitle_class
         self.save_path = save_path
 
 #Relative path
@@ -39,11 +42,11 @@ for filename in os.listdir(folder):
 configs = []
 #Create the folder to save the news
 os.makedirs(os.path.join(dirname+'\\output', 'Albacete'), exist_ok=True)
-configs.append(Config('https://www.albacete.es', 'https://www.albacete.es/es/noticias', 'div', 'class', 'layout-content', 'div', 'class', 'layout__region--first', 'div', 'class','ps_post_contenido', 'h1', 'class', 'page-title', dirname+'\\output\\Albacete\\'))
+configs.append(Config('https://www.albacete.es', 'https://www.albacete.es/es/noticias', 'div', 'class', 'layout-content', 'div', 'class', 'layout__region--first', 'div', 'class','ps_post_contenido', 'h1', 'class', 'page-title', 'div', 'class', 'field field--name-field-subtitulo field--type-string field--label-hidden field__item', dirname+'\\output\\Albacete\\'))
 os.makedirs(os.path.join(dirname+'\\output', 'Villarobledo'), exist_ok=True)
-configs.append(Config('https://www.villarrobledo.com', 'https://www.villarrobledo.com/noticias.php', 'ul', 'class', 'listado', 'div', 'class', 'detalle', 'div', 'id', 'carrusel', 'p', 'class', 'titulo', dirname+'\\output\\Villarobledo\\'))
+configs.append(Config('https://www.villarrobledo.com', 'https://www.villarrobledo.com/noticias.php', 'ul', 'class', 'listado', 'div', 'class', 'detalle', 'div', 'id', 'carrusel', 'p', 'class', 'titulo', 'div', 'class', 'entradilla', dirname+'\\output\\Villarobledo\\'))
 os.makedirs(os.path.join(dirname+'\\output', 'Tomelloso'), exist_ok=True)
-configs.append(Config('http://www.tomelloso.es/', 'http://www.tomelloso.es/prensa/', 'table', 'class', 'table', 'div', 'class', 'article-content', 'section', 'class', 'article-intro', 'h1', 'class', 'article-title', dirname+'\\output\\Tomelloso\\'))
+configs.append(Config('http://www.tomelloso.es/', 'http://www.tomelloso.es/prensa/', 'table', 'class', 'table', 'div', 'class', 'article-content', 'section', 'class', 'article-intro', 'h1', 'class', 'article-title', 'span', 'style', "font-size: 14pt; font-family: Arial, 'sans-serif';", dirname+'\\output\\Tomelloso\\'))
 
 ####################################################################################################
 ####################################################################################################
@@ -63,6 +66,9 @@ for config in configs:
     title_tag = config.title_tag
     title_type = config.title_type
     title_class = config.title_class
+    subtitle_tag = config.subtitle_tag
+    subtitle_type = config.subtitle_type
+    subtitle_class = config.subtitle_class
     save_path = config.save_path
 
     headers = {
@@ -118,9 +124,20 @@ for config in configs:
             soup = BeautifulSoup(response.text, 'html.parser')
             # Get the title
             title = soup.find(title_tag, attrs={title_type: title_class})
+            titleText = title.text
             # Get the content
-            div = soup.find(news_content_tag, attrs={news_content_type: news_content_class})
-            main.append({'id': main_id, 'title': title.text, 'content': div.text})
+            try:
+                div = soup.find(news_content_tag, attrs={news_content_type: news_content_class})
+                contentText = div.text
+            except:
+                contentText = ''
+            # Get the subtitle
+            try:
+                subtitle = soup.find(subtitle_tag, attrs={subtitle_type: subtitle_class})
+                subtitleText = subtitle.text
+            except:
+                subtitleText = ''
+            main.append({'id': main_id, 'title': titleText, 'subtitle': subtitleText, 'content': contentText})
             # Get the div with the images
             imgdiv = soup.find(imgs_tag, attrs={img_type: imgs_class})
             # Get all the images from the div
