@@ -42,6 +42,8 @@ os.makedirs(os.path.join(dirname+'\\output', 'Albacete'), exist_ok=True)
 configs.append(Config('https://www.albacete.es', 'https://www.albacete.es/es/noticias', 'div', 'class', 'layout-content', 'div', 'class', 'layout__region--first', 'div', 'class','ps_post_contenido', 'h1', 'class', 'page-title', dirname+'\\output\\Albacete\\'))
 os.makedirs(os.path.join(dirname+'\\output', 'Villarobledo'), exist_ok=True)
 configs.append(Config('https://www.villarrobledo.com', 'https://www.villarrobledo.com/noticias.php', 'ul', 'class', 'listado', 'div', 'class', 'detalle', 'div', 'id', 'carrusel', 'p', 'class', 'titulo', dirname+'\\output\\Villarobledo\\'))
+os.makedirs(os.path.join(dirname+'\\output', 'Tomelloso'), exist_ok=True)
+configs.append(Config('http://www.tomelloso.es/', 'http://www.tomelloso.es/prensa/', 'table', 'class', 'table', 'div', 'class', 'article-content', 'section', 'class', 'article-intro', 'h1', 'class', 'article-title', dirname+'\\output\\Tomelloso\\'))
 
 ####################################################################################################
 ####################################################################################################
