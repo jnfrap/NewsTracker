@@ -137,6 +137,11 @@ for config in configs:
                 subtitleText = subtitle.text
             except:
                 subtitleText = ''
+            # If contentText contains the title or the subtitle, remove it
+            if contentText.find(titleText) != -1:
+                contentText = contentText.replace(titleText, '')
+            if contentText.find(subtitleText) != -1:
+                contentText = contentText.replace(subtitleText, '')
             main.append({'id': main_id, 'title': titleText, 'subtitle': subtitleText, 'content': contentText})
             # Get the div with the images
             imgdiv = soup.find(imgs_tag, attrs={img_type: imgs_class})
