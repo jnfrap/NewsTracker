@@ -1,77 +1,28 @@
 import requests, urllib.request, json, os, shutil
 from bs4 import BeautifulSoup
 
-#Config class with the data of each news site
-class Config:
-    def __init__(self, main_url, url, news_tag, news_type, news_class, news_content_tag, news_content_type, news_content_class, imgs_tag, img_type, imgs_class, title_tag, title_type, title_class, subtitle_tag, subtitle_type, subtitle_class, save_path):
-        self.main_url = main_url
-        self.url = url
-        self.news_tag = news_tag
-        self.news_type = news_type
-        self.news_class = news_class
-        self.news_content_tag = news_content_tag
-        self.news_content_type = news_content_type
-        self.news_content_class = news_content_class
-        self.imgs_tag = imgs_tag
-        self.img_type = img_type
-        self.imgs_class = imgs_class
-        self.title_tag = title_tag
-        self.title_type = title_type
-        self.title_class = title_class
-        self.subtitle_tag = subtitle_tag
-        self.subtitle_type = subtitle_type
-        self.subtitle_class = subtitle_class
-        self.save_path = save_path
+def getNews(main_url, url, news_tag, news_type, news_class, news_content_tag, news_content_type, news_content_class, imgs_tag, img_type, imgs_class, title_tag, title_type, title_class, subtitle_tag, subtitle_type, subtitle_class, directory):
+    #Relative path
+    dirname = os.path.dirname(__file__)
+    # Save patch
+    save_path = dirname+'\\output\\'+directory+'\\'
+    # Create output folder if not exists
+    if not os.path.exists(os.path.join(dirname, 'output')):
+        os.makedirs(os.path.join(dirname, 'output'), exist_ok=True)
 
-#Relative path
-dirname = os.path.dirname(__file__)
-# Create output folder
-os.makedirs(os.path.join(dirname, 'output'), exist_ok=True)
+    # Create the folder to save the news if not exists
+    os.makedirs(os.path.join(dirname+'\\output', directory), exist_ok=True)
 
-# Delete the content of the folder output
-folder = dirname+'\\output'
-for filename in os.listdir(folder):
-    file_path = os.path.join(folder, filename)
-    try:
-        if os.path.isfile(file_path) or os.path.islink(file_path):
-            os.unlink(file_path)
-        elif os.path.isdir(file_path):
-            shutil.rmtree(file_path)
-    except Exception as e:
-        print('Failed to delete %s. Reason: %s' % (file_path, e))
-
-#Create and fill the config list
-configs = []
-#Create the folder to save the news
-os.makedirs(os.path.join(dirname+'\\output', 'Albacete'), exist_ok=True)
-configs.append(Config('https://www.albacete.es', 'https://www.albacete.es/es/noticias', 'div', 'class', 'layout-content', 'div', 'class', 'layout__region--first', 'div', 'class','ps_post_contenido', 'h1', 'class', 'page-title', 'div', 'class', 'field field--name-field-subtitulo field--type-string field--label-hidden field__item', dirname+'\\output\\Albacete\\'))
-os.makedirs(os.path.join(dirname+'\\output', 'Villarobledo'), exist_ok=True)
-configs.append(Config('https://www.villarrobledo.com', 'https://www.villarrobledo.com/noticias.php', 'ul', 'class', 'listado', 'div', 'class', 'detalle', 'div', 'id', 'carrusel', 'p', 'class', 'titulo', 'div', 'class', 'entradilla', dirname+'\\output\\Villarobledo\\'))
-os.makedirs(os.path.join(dirname+'\\output', 'Tomelloso'), exist_ok=True)
-configs.append(Config('http://www.tomelloso.es/', 'http://www.tomelloso.es/prensa/', 'table', 'class', 'table', 'div', 'class', 'article-content', 'section', 'class', 'article-intro', 'h1', 'class', 'article-title', 'span', 'style', "font-size: 14pt; font-family: Arial, 'sans-serif';", dirname+'\\output\\Tomelloso\\'))
-
-####################################################################################################
-####################################################################################################
-
-for config in configs:
-    main_url = config.main_url
-    url = config.url
-    news_tag = config.news_tag
-    news_type = config.news_type
-    news_class = config.news_class
-    news_content_tag = config.news_content_tag
-    news_content_type = config.news_content_type
-    news_content_class = config.news_content_class
-    imgs_tag = config.imgs_tag
-    img_type = config.img_type
-    imgs_class = config.imgs_class
-    title_tag = config.title_tag
-    title_type = config.title_type
-    title_class = config.title_class
-    subtitle_tag = config.subtitle_tag
-    subtitle_type = config.subtitle_type
-    subtitle_class = config.subtitle_class
-    save_path = config.save_path
+    # Delete all files in dirname+'\\output\\'+directory+'\\'
+    for filename in os.listdir(dirname+'\\output\\'+directory+'\\'):
+        file_path = os.path.join(dirname+'\\output\\'+directory+'\\', filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print('Failed to delete %s. Reason: %s' % (file_path, e))
 
     headers = {
         'cache-control': "no-cache"

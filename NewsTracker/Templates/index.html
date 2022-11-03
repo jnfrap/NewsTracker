@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsTracker</title>
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <!--FontAwesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js" integrity="sha512-naukR7I+Nk6gp7p5TMA4ycgfxaZBJ7MO5iC3Fp6ySQyKFHOGfpkSZkYVWV5R7u7cfAicxanwYQ5D1e17EfJcMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+<body>
+    <div style="display: flex;">
+        <div class="mainForm" style="width: 1000px;">
+            <!--Register form-->
+            <div class="container">
+                <div class="row">
+                    <div>
+                        <h1>NewsTracker</h1>
+                        <form action="/response/" method="GET">
+
+                            <div class="mb-3">
+                                <label for="mainUrl" class="form-label">Main url</label>
+                                <input type="text" class="form-control" id="mainUrl" name="mainUrl" placeholder="Ex: https://www.albacete.es" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="newsUrl" class="form-label">News url</label>
+                                <input type="text" class="form-control" id="newsUrl" name="newsUrl" placeholder="Ex: https://www.albacete.es/es/noticias" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="newsTag" class="form-label">News list tag</label>
+                                <input type="text" class="form-control" id="newsTag" name="newsTag" placeholder="Ex: div" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="newsType" class="form-label">News list type</label>
+                                <input type="text" class="form-control" id="newsType" name="newsType" placeholder="Ex: class" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="newsClass" class="form-label">News list class</label>
+                                <input type="text" class="form-control" id="newsClass" name="newsClass" placeholder="Ex: layout-content" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="titleTag" class="form-label">Title tag</label>
+                                <input type="text" class="form-control" id="titleTag" name="titleTag" placeholder="Ex: h2" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="titleType" class="form-label">Title type</label>
+                                <input type="text" class="form-control" id="titleType" name="titleType" placeholder="Ex: class" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="titleClass" class="form-label">Title class</label>
+                                <input type="text" class="form-control" id="titleClass" name="titleClass" placeholder="Ex: title" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="subtitleTag" class="form-label">Subtitle tag</label>
+                                <input type="text" class="form-control" id="subtitleTag" name="subtitleTag" placeholder="Ex: h3" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="subtitleType" class="form-label">Subtitle type</label>
+                                <input type="text" class="form-control" id="subtitleType" name="subtitleType" placeholder="Ex: class" required>
+                            </div>                    
+
+                            <div class="mb-3">
+                                <label for="subtitleClass" class="form-label">Subtitle class</label>
+                                <input type="text" class="form-control" id="subtitleClass" name="subtitleClass" placeholder="Ex: subtitle" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="contentTag" class="form-label">Content tag</label>
+                                <input type="text" class="form-control" id="contentTag" name="contentTag" placeholder="Ex: div" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="contentType" class="form-label">Content type</label>
+                                <input type="text" class="form-control" id="contentType" name="contentType" placeholder="Ex: class" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="contentClass" class="form-label">Content class</label>
+                                <input type="text" class="form-control" id="contentClass" name="contentClass" placeholder="Ex: content" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="imgsTag" class="form-label">Images tag</label>
+                                <input type="text" class="form-control" id="imgsTag" name="imgsTag" placeholder="Ex: div" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="imgsType" class="form-label">Images type</label>
+                                <input type="text" class="form-control" id="imgsType" name="imgsType" placeholder="Ex: class" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="imgsClass" class="form-label">Images class</label>
+                                <input type="text" class="form-control" id="imgsClass" name="imgsClass" placeholder="Ex: images" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="directory" class="form-label">Directory name</label>
+                                <input type="text" class="form-control" id="directory" name="directory" placeholder="Ex: Albacete" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="padding: 50px;">
+            <p>NewsTracker is a web scraper that allows you to extract news from a website and save them in a local directory.</p>
+            <div class="buttons" style="display: flex;">
+                <form action="/allSites/"><!--Falta meterle la pagina de la tabla-->
+                    <button type="submit" class="btn btn-primary">See stored sites</button>
+                </form>
+                &nbsp;
+                <form action="/download/">
+                    <button type="submit" class="btn btn-primary">Download the news</button>
+                </form>
+                &nbsp;
+                <form action=""><!--Settings-->
+                    <button type="submit" class="btn btn-primary">Settings</button>
+                </form>
+            </div>
+            <br>
+            <p>
+                Instructions:
+                <ul>
+                    <li>Enter the url of the website you want to extract the news from.</li>
+                    <li>"Main url" refers to the root url, "News url" refers to the site with the list of news</li>
+                    <li>Enter the tag, type and class of the list of news.</li>
+                    <li>Enter the tag, type and class of the title of the news.</li>
+                    <li>Enter the tag, type and class of the subtitle of the news.</li>
+                    <li>Enter the tag, type and class of the content of the news.</li>
+                    <li>Enter the tag, type and class of the images of the news.</li>
+                    <li>Enter the name of the directory where you want to save the news.</li>
+                    <li>If the title is not correct, it will fail, but if the rest of the fields are wrong it will return nothing.</li>
+                    <li>If a tag has several classes, write them all or just one.</li>
+                    <li>Tags and attributes are not limited to div and class, they can be anything.</li>
+                    <li><i>The download may take a few minutes. The page is not stuck, give it time to finish.</i></li>
+                </ul>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
