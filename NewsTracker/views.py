@@ -57,7 +57,7 @@ def allSites(request): # ---------------MEJORAR----------------
     with open(os.path.join(dirname, 'newsSites.json'), 'r') as f:
         data = json.load(f)
 
-    # Data is a json array, so we need to convert it to a Sites array
+    # Data is a json array, so we need to convert it to a string array
     sites = []
     for site in data:
         sites.append([site['mainUrl'], site['newsUrl'], site['newsTag'], site['newsType'], site['newsClass'], site['titleTag'], site['titleType'], site['titleClass'], site['subtitleTag'], site['subtitleType'], site['subtitleClass'],site['contentTag'], site['contentType'], site['contentClass'], site['imgsTag'], site['imgsType'], site['imgsClass'], site['directory']])
