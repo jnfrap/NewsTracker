@@ -56,4 +56,13 @@ def allSites(request): # ---------------MEJORAR----------------
     dirname = os.path.dirname(__file__)+"/Misc/"
     with open(os.path.join(dirname, 'newsSites.json'), 'r') as f:
         data = json.load(f)
-    return HttpResponse(data)
+
+    # Data is a json array, so we need to convert it to a Sites array
+    sites = []
+    for site in data:
+        sites.append([site['mainUrl'], site['newsUrl'], site['newsTag'], site['newsType'], site['newsClass'], site['contentTag'], site['contentType'], site['contentClass'], site['imgsTag'], site['imgsType'], site['imgsClass'], site['titleTag'], site['titleType'], site['titleClass'], site['subtitleTag'], site['subtitleType'], site['subtitleClass'], site['directory']])
+
+    # Send the list to the template
+    template = loader.get_template('savedSites.html')
+    doc = template.render({'sites': sites})
+    return HttpResponse(doc)
