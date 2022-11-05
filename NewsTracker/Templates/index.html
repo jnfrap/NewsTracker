@@ -13,7 +13,30 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js" integrity="sha512-naukR7I+Nk6gp7p5TMA4ycgfxaZBJ7MO5iC3Fp6ySQyKFHOGfpkSZkYVWV5R7u7cfAicxanwYQ5D1e17EfJcMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </head>
-<body>
+<body style="background-color: #292c2e; color: rgb(207, 207, 207);">
+    <style>
+        input {
+            background-color: rgb(54, 54, 54) !important;
+            color: rgb(207, 207, 207) !important;
+        }
+        ::placeholder {
+            color: rgb(151, 151, 151) !important;
+        }
+        ::-webkit-scrollbar {
+        width: 0.5em;
+        }
+        ::-webkit-scrollbar-track{
+        background-color: #292c2e;
+        }
+        ::-webkit-scrollbar-thumb{
+        background-color: #5a5a5a;
+        border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover{
+        background-color: rgb(109, 109, 109);
+        border-radius: 10px;
+        }
+    </style>
     <div style="display: flex;">
         <div class="mainForm" style="width: 1000px;">
             <!--Register form-->
@@ -25,92 +48,92 @@
 
                             <div class="mb-3">
                                 <label for="mainUrl" class="form-label">Main url</label>
-                                <input type="text" class="form-control" id="mainUrl" name="mainUrl" placeholder="Ex: https://www.albacete.es" required>
+                                <input type="text" class="form-control" id="mainUrl" name="mainUrl" placeholder="Ex: https://www.albacete.es">
                             </div>
 
                             <div class="mb-3">
                                 <label for="newsUrl" class="form-label">News url</label>
-                                <input type="text" class="form-control" id="newsUrl" name="newsUrl" placeholder="Ex: https://www.albacete.es/es/noticias" required>
+                                <input type="text" class="form-control" id="newsUrl" name="newsUrl" placeholder="Ex: https://www.albacete.es/es/noticias">
                             </div>
 
                             <div class="mb-3">
                                 <label for="newsTag" class="form-label">News list tag</label>
-                                <input type="text" class="form-control" id="newsTag" name="newsTag" placeholder="Ex: div" required>
+                                <input type="text" class="form-control" id="newsTag" name="newsTag" placeholder="Ex: div">
                             </div>
 
                             <div class="mb-3">
                                 <label for="newsType" class="form-label">News list type</label>
-                                <input type="text" class="form-control" id="newsType" name="newsType" placeholder="Ex: class" required>
+                                <input type="text" class="form-control" id="newsType" name="newsType" placeholder="Ex: class">
                             </div>
 
                             <div class="mb-3">
                                 <label for="newsClass" class="form-label">News list class</label>
-                                <input type="text" class="form-control" id="newsClass" name="newsClass" placeholder="Ex: layout-content" required>
+                                <input type="text" class="form-control" id="newsClass" name="newsClass" placeholder="Ex: layout-content">
                             </div>
 
                             <div class="mb-3">
                                 <label for="titleTag" class="form-label">Title tag</label>
-                                <input type="text" class="form-control" id="titleTag" name="titleTag" placeholder="Ex: h2" required>
+                                <input type="text" class="form-control" id="titleTag" name="titleTag" placeholder="Ex: h2">
                             </div>
 
                             <div class="mb-3">
                                 <label for="titleType" class="form-label">Title type</label>
-                                <input type="text" class="form-control" id="titleType" name="titleType" placeholder="Ex: class" required>
+                                <input type="text" class="form-control" id="titleType" name="titleType" placeholder="Ex: class">
                             </div>
 
                             <div class="mb-3">
                                 <label for="titleClass" class="form-label">Title class</label>
-                                <input type="text" class="form-control" id="titleClass" name="titleClass" placeholder="Ex: title" required>
+                                <input type="text" class="form-control" id="titleClass" name="titleClass" placeholder="Ex: title">
                             </div>
 
                             <div class="mb-3">
                                 <label for="subtitleTag" class="form-label">Subtitle tag</label>
-                                <input type="text" class="form-control" id="subtitleTag" name="subtitleTag" placeholder="Ex: h3" required>
+                                <input type="text" class="form-control" id="subtitleTag" name="subtitleTag" placeholder="Ex: h3">
                             </div>
 
                             <div class="mb-3">
                                 <label for="subtitleType" class="form-label">Subtitle type</label>
-                                <input type="text" class="form-control" id="subtitleType" name="subtitleType" placeholder="Ex: class" required>
+                                <input type="text" class="form-control" id="subtitleType" name="subtitleType" placeholder="Ex: class">
                             </div>                    
 
                             <div class="mb-3">
                                 <label for="subtitleClass" class="form-label">Subtitle class</label>
-                                <input type="text" class="form-control" id="subtitleClass" name="subtitleClass" placeholder="Ex: subtitle" required>
+                                <input type="text" class="form-control" id="subtitleClass" name="subtitleClass" placeholder="Ex: subtitle">
                             </div>
 
                             <div class="mb-3">
                                 <label for="contentTag" class="form-label">Content tag</label>
-                                <input type="text" class="form-control" id="contentTag" name="contentTag" placeholder="Ex: div" required>
+                                <input type="text" class="form-control" id="contentTag" name="contentTag" placeholder="Ex: div">
                             </div>
 
                             <div class="mb-3">
                                 <label for="contentType" class="form-label">Content type</label>
-                                <input type="text" class="form-control" id="contentType" name="contentType" placeholder="Ex: class" required>
+                                <input type="text" class="form-control" id="contentType" name="contentType" placeholder="Ex: class">
                             </div>
 
                             <div class="mb-3">
                                 <label for="contentClass" class="form-label">Content class</label>
-                                <input type="text" class="form-control" id="contentClass" name="contentClass" placeholder="Ex: content" required>
+                                <input type="text" class="form-control" id="contentClass" name="contentClass" placeholder="Ex: content">
                             </div>
 
                             <div class="mb-3">
                                 <label for="imgsTag" class="form-label">Images tag</label>
-                                <input type="text" class="form-control" id="imgsTag" name="imgsTag" placeholder="Ex: div" required>
+                                <input type="text" class="form-control" id="imgsTag" name="imgsTag" placeholder="Ex: div">
                             </div>
 
                             <div class="mb-3">
                                 <label for="imgsType" class="form-label">Images type</label>
-                                <input type="text" class="form-control" id="imgsType" name="imgsType" placeholder="Ex: class" required>
+                                <input type="text" class="form-control" id="imgsType" name="imgsType" placeholder="Ex: class">
                             </div>
 
                             <div class="mb-3">
                                 <label for="imgsClass" class="form-label">Images class</label>
-                                <input type="text" class="form-control" id="imgsClass" name="imgsClass" placeholder="Ex: images" required>
+                                <input type="text" class="form-control" id="imgsClass" name="imgsClass" placeholder="Ex: images">
                             </div>
 
                             <div class="mb-3">
                                 <label for="directory" class="form-label">Directory name</label>
-                                <input type="text" class="form-control" id="directory" name="directory" placeholder="Ex: Albacete" required>
+                                <input type="text" class="form-control" id="directory" name="directory" placeholder="Ex: Albacete">
                             </div>
 
                             <button type="submit" class="btn btn-primary">Submit</button>
