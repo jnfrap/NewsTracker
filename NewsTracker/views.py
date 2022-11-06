@@ -66,3 +66,18 @@ def allSites(request): # ---------------MEJORAR----------------
     template = loader.get_template('savedSites.html')
     doc = template.render({'sites': sites})
     return HttpResponse(doc)
+
+def deleteSite(request):
+    # Get the parameter
+    site = request.GET['site']
+    # Delete the site from the json
+    dirname = os.path.dirname(__file__)+"/Misc/"
+    with open(os.path.join(dirname, 'newsSites.json'), 'r') as f:
+        data = json.load(f)
+    for i in range(len(data)):
+        if data[i]['newsUrl'] == site[1]:
+            del data[i]
+            break
+    with open(os.path.join(dirname, 'newsSites.json'), 'w') as f:
+        json.dump(data, f)
+    return HttpResponse('<h1>Site deleted</h1>')

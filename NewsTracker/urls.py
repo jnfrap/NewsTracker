@@ -23,4 +23,5 @@ urlpatterns = [
     path('response/', response),
     path('download/', download),
     path('allSites/', allSites),
+    path('deleteSite/', deleteSite),
 ]
