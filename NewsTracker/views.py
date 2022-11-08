@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.template import Template, Context, loader
 from NewsTracker.Misc.Tracker import getNews
-import os, json, shutil
+import os, json, shutil, traceback
 
 def index(request):
     template = loader.get_template('index.html')
@@ -125,14 +125,23 @@ def testSite(request):
     subtitle_class = request.GET['subtitleClass']
     save_path = request.GET['directory']
 
-    # Get the news
-    getNews(main_url, url, news_tag, news_type, news_class, news_content_tag, news_content_type, news_content_class, imgs_tag, img_type, imgs_class, title_tag, title_type, title_class, subtitle_tag, subtitle_type, subtitle_class, save_path)
+    try:
+        # Get the news
+        getNews(main_url, url, news_tag, news_type, news_class, news_content_tag, news_content_type, news_content_class, imgs_tag, img_type, imgs_class, title_tag, title_type, title_class, subtitle_tag, subtitle_type, subtitle_class, save_path)
 
-    # Compress the Misc/output/save_path folder and send it to the user to download
-    shutil.make_archive('output', 'zip', os.path.join(os.path.dirname(__file__)+"/Misc/output/", save_path))
+        # Compress the Misc/output/save_path folder and send it to the user to download
+        shutil.make_archive('output', 'zip', os.path.join(os.path.dirname(__file__)+"/Misc/output/", save_path))
 
-    # Return output.zip
-    with open('output.zip', 'rb') as f:
-        response = HttpResponse(f.read(), content_type='application/zip')
-        response['Content-Disposition'] = 'attachment; filename=output.zip'
-        return response
+        # Return output.zip
+        with open('output.zip', 'rb') as f:
+            response = HttpResponse(f.read(), content_type='application/zip')
+            response['Content-Disposition'] = 'attachment; filename=output.zip'
+            return response
+    except:
+        # Download a file with the error
+        with open('error.txt', 'w') as f:
+            f.write(traceback.format_exc())
+        with open('error.txt', 'rb') as f:
+            response = HttpResponse(f.read(), content_type='text/plain')
+            response['Content-Disposition'] = 'attachment; filename=error.txt'
+            return response
