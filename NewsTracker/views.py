@@ -52,7 +52,7 @@ def download(request):
         getNews(site['mainUrl'], site['newsUrl'], site['newsTag'], site['newsType'], site['newsClass'], site['contentTag'], site['contentType'], site['contentClass'], site['imgsTag'], site['imgsType'], site['imgsClass'], site['titleTag'], site['titleType'], site['titleClass'], site['subtitleTag'], site['subtitleType'], site['subtitleClass'], site['directory'])
     return HttpResponse('<h1>Download finished</h1>')
 
-def allSites(request): # ---------------MEJORAR----------------
+def allSites(request):
     dirname = os.path.dirname(__file__)+"/Misc/"
     with open(os.path.join(dirname, 'newsSites.json'), 'r') as f:
         data = json.load(f)
@@ -67,17 +67,33 @@ def allSites(request): # ---------------MEJORAR----------------
     doc = template.render({'sites': sites})
     return HttpResponse(doc)
 
-def deleteSite(request):
+def deleteSite(request): # ------------------->> NOT WORKING
     # Get the parameter
     site = request.GET['site']
-    # Delete the site from the json
+    # Site is a string, so we need to convert it to a list
+    site = site.split(',')
+
+    # For each element in the list, remove the ' and the []
+    for i in range(len(site)):
+        site[i] = site[i].replace("'", "")
+        site[i] = site[i].replace("[", "")
+        site[i] = site[i].replace("]", "")
+        site[i] = site[i].strip()
+    
+    # Get the json
     dirname = os.path.dirname(__file__)+"/Misc/"
     with open(os.path.join(dirname, 'newsSites.json'), 'r') as f:
         data = json.load(f)
+    
+    # Compare the site with the json and delete it if it's the same
     for i in range(len(data)):
-        if data[i]['newsUrl'] == site[1]:
-            del data[i]
+        if data[i]['mainUrl'] == site[0] and data[i]['newsUrl'] == site[1] and data[i]['newsTag'] == site[2] and data[i]['newsType'] == site[3] and data[i]['newsClass'] == site[4] and data[i]['titleTag'] == site[5] and data[i]['titleType'] == site[6] and data[i]['titleClass'] == site[7] and data[i]['subtitleTag'] == site[8] and data[i]['subtitleType'] == site[9] and data[i]['subtitleClass'] == site[10] and data[i]['contentTag'] == site[11] and data[i]['contentType'] == site[12] and data[i]['contentClass'] == site[13] and data[i]['imgsTag'] == site[14] and data[i]['imgsType'] == site[15] and data[i]['imgsClass'] == site[16] and data[i]['directory'] == site[17]:
+            data.pop(i)
             break
+    
+    # Save the json
     with open(os.path.join(dirname, 'newsSites.json'), 'w') as f:
         json.dump(data, f)
+
+    # Return a h1
     return HttpResponse('<h1>Site deleted</h1>')
