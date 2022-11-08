@@ -33,14 +33,14 @@ def response(request):
     dirname = os.path.dirname(__file__)+"/Misc/"
     if not os.path.exists(os.path.join(dirname, 'newsSites.json')):
         with open(os.path.join(dirname, 'newsSites.json'), 'w') as f:
-            json.dump([{'mainUrl': main_url, 'newsUrl': url, 'newsTag': news_tag, 'newsType': news_type, 'newsClass': news_class, 'contentTag': news_content_tag, 'contentType': news_content_type, 'contentClass': news_content_class, 'imgsTag': imgs_tag, 'imgsType': img_type, 'imgsClass': imgs_class, 'titleTag': title_tag, 'titleType': title_type, 'titleClass': title_class, 'subtitleTag': subtitle_tag, 'subtitleType': subtitle_type, 'subtitleClass': subtitle_class, 'directory': save_path}], f)
+            json.dump([{'mainUrl': main_url, 'newsUrl': url, 'newsTag': news_tag, 'newsType': news_type, 'newsClass': news_class, 'contentTag': news_content_tag, 'contentType': news_content_type, 'contentClass': news_content_class, 'imgsTag': imgs_tag, 'imgsType': img_type, 'imgsClass': imgs_class, 'titleTag': title_tag, 'titleType': title_type, 'titleClass': title_class, 'subtitleTag': subtitle_tag, 'subtitleType': subtitle_type, 'subtitleClass': subtitle_class, 'directory': save_path, 'schedule': '0 0 * * *', 'activate': False}], f)
     else:
         with open(os.path.join(dirname, 'newsSites.json'), 'r') as f:
             data = json.load(f)
-        data.append({'mainUrl': main_url, 'newsUrl': url, 'newsTag': news_tag, 'newsType': news_type, 'newsClass': news_class, 'contentTag': news_content_tag, 'contentType': news_content_type, 'contentClass': news_content_class, 'imgsTag': imgs_tag, 'imgsType': img_type, 'imgsClass': imgs_class, 'titleTag': title_tag, 'titleType': title_type, 'titleClass': title_class, 'subtitleTag': subtitle_tag, 'subtitleType': subtitle_type, 'subtitleClass': subtitle_class, 'directory': save_path})
+        data.append({'mainUrl': main_url, 'newsUrl': url, 'newsTag': news_tag, 'newsType': news_type, 'newsClass': news_class, 'contentTag': news_content_tag, 'contentType': news_content_type, 'contentClass': news_content_class, 'imgsTag': imgs_tag, 'imgsType': img_type, 'imgsClass': imgs_class, 'titleTag': title_tag, 'titleType': title_type, 'titleClass': title_class, 'subtitleTag': subtitle_tag, 'subtitleType': subtitle_type, 'subtitleClass': subtitle_class, 'directory': save_path, 'schedule': '0 0 * * *', 'activate': False})
         with open(os.path.join(dirname, 'newsSites.json'), 'w') as f:
             json.dump(data, f)
-    
+
     # Return a script to send a success alert and reload the page
     return HttpResponse('<script>alert("Site added successfully"); window.location.href = "/";</script>')
 
@@ -145,3 +145,22 @@ def testSite(request):
             response = HttpResponse(f.read(), content_type='text/plain')
             response['Content-Disposition'] = 'attachment; filename=error.txt'
             return response
+
+def settings(request):
+    # Get newsSites.json, get the fields newsUrl, schedule and activate. Save it in variables
+    dirname = os.path.dirname(__file__)+"/Misc/"
+    with open(os.path.join(dirname, 'newsSites.json'), 'r') as f:
+        data = json.load(f)
+
+    sites = []
+    for site in data:
+        site = []
+        site.append(data['newsUrl'])
+        site.append(data['schedule'])
+        site.append(data['activate'])
+        sites.append(site)
+    
+    # Send sites to the template
+    template = loader.get_template('settings.html')
+    doc = template.render({'sites': sites})
+    return HttpResponse(doc)

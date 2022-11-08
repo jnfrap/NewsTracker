@@ -25,4 +25,5 @@ urlpatterns = [
     path('allSites/', allSites),
     path('deleteSite/', deleteSite),
     path('testSite/', testSite),
+    path('settings/', settings),
 ]
