@@ -44,7 +44,7 @@
                 <div class="row">
                     <div>
                         <h1>NewsTracker</h1>
-                        <form action="/response/" method="GET">
+                        <form action="/response/" method="GET" id="siteForm">
 
                             <div class="mb-3">
                                 <label for="mainUrl" class="form-label">Main url</label>
@@ -136,7 +136,24 @@
                                 <input type="text" class="form-control" id="directory" name="directory" placeholder="Ex: Albacete">
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>&nbsp;
+                            <button type="button" class="btn btn-primary" onclick="testSite()">Test</button>
+                            <script>
+                                function testSite(){
+                                    var form = document.getElementById("siteForm");
+                                    
+                                    //Change the action of the form to testSite
+                                    form.action = "/testSite/";
+
+                                    //Submit the form
+                                    form.submit();
+
+                                    //Change the action of the form back to index
+                                    form.action = "/response/";
+
+                                    return false;
+                                }
+                            </script>
                         </form>
                     </div>
                 </div>
@@ -162,7 +179,7 @@
                 Instructions:
                 <ul>
                     <li>Enter the url of the website you want to extract the news from.</li>
-                    <li>"Main url" refers to the root url, "News url" refers to the site with the list of news</li>
+                    <li>"Main url" refers to the root url, "News url" refers to the site with the list of news.</li>
                     <li>Enter the tag, type and class of the list of news.</li>
                     <li>Enter the tag, type and class of the title of the news.</li>
                     <li>Enter the tag, type and class of the subtitle of the news.</li>
@@ -173,6 +190,7 @@
                     <li>If a tag has several classes, write them all or just one.</li>
                     <li>Tags and attributes are not limited to div and class, they can be anything.</li>
                     <li><i>The download may take a few minutes. The page is not stuck, give it time to finish.</i></li>
+                    <li>The test button will download the data of the fields without saving internally. </br><i>Again, it can take a few minutes, the page is not stuck, give it time to finish.</i></li>
                 </ul>
             </p>
         </div>

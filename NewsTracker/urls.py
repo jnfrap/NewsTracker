@@ -24,4 +24,5 @@ urlpatterns = [
     path('download/', download),
     path('allSites/', allSites),
     path('deleteSite/', deleteSite),
+    path('testSite/', testSite),
 ]

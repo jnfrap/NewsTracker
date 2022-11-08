@@ -103,3 +103,36 @@ def deleteSite(request):
 
     # Return a script to reload the page
     return HttpResponse('<script>window.location.href = "/allSites";</script>')
+
+def testSite(request):
+    # Get GET parameters
+    main_url = request.GET['mainUrl']
+    url = request.GET['newsUrl']
+    news_tag = request.GET['newsTag']
+    news_type = request.GET['newsType']
+    news_class = request.GET['newsClass']
+    news_content_tag = request.GET['contentTag']
+    news_content_type = request.GET['contentType']
+    news_content_class = request.GET['contentClass']
+    imgs_tag = request.GET['imgsTag']
+    img_type = request.GET['imgsType']
+    imgs_class = request.GET['imgsClass']
+    title_tag = request.GET['titleTag']
+    title_type = request.GET['titleType']
+    title_class = request.GET['titleClass']
+    subtitle_tag = request.GET['subtitleTag']
+    subtitle_type = request.GET['subtitleType']
+    subtitle_class = request.GET['subtitleClass']
+    save_path = request.GET['directory']
+
+    # Get the news
+    getNews(main_url, url, news_tag, news_type, news_class, news_content_tag, news_content_type, news_content_class, imgs_tag, img_type, imgs_class, title_tag, title_type, title_class, subtitle_tag, subtitle_type, subtitle_class, save_path)
+
+    # Compress the Misc/output/save_path folder and send it to the user to download
+    shutil.make_archive('output', 'zip', os.path.join(os.path.dirname(__file__)+"/Misc/output/", save_path))
+
+    # Return output.zip
+    with open('output.zip', 'rb') as f:
+        response = HttpResponse(f.read(), content_type='application/zip')
+        response['Content-Disposition'] = 'attachment; filename=output.zip'
+        return response
