@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.template import Template, Context, loader
 from NewsTracker.Misc.Tracker import getNews
-import os, json
+import os, json, shutil
 
 def index(request):
     template = loader.get_template('index.html')
@@ -41,8 +41,8 @@ def response(request):
         with open(os.path.join(dirname, 'newsSites.json'), 'w') as f:
             json.dump(data, f)
     
-    # Return a h1
-    return HttpResponse('<h1>Site added</h1>')
+    # Return a script to send a success alert and reload the page
+    return HttpResponse('<script>alert("Site added successfully"); window.location.href = "/";</script>')
 
 def download(request):
     dirname = os.path.dirname(__file__)+"/Misc/"
@@ -50,7 +50,13 @@ def download(request):
         data = json.load(f)
     for site in data:
         getNews(site['mainUrl'], site['newsUrl'], site['newsTag'], site['newsType'], site['newsClass'], site['contentTag'], site['contentType'], site['contentClass'], site['imgsTag'], site['imgsType'], site['imgsClass'], site['titleTag'], site['titleType'], site['titleClass'], site['subtitleTag'], site['subtitleType'], site['subtitleClass'], site['directory'])
-    return HttpResponse('<h1>Download finished</h1>')
+    
+    # Compress the Misc/output folder and send it to the user to download
+    shutil.make_archive('output', 'zip', os.path.join(dirname, 'output'))
+    with open('output.zip', 'rb') as f:
+        response = HttpResponse(f.read(), content_type='application/zip')
+        response['Content-Disposition'] = 'attachment; filename=output.zip'
+        return response
 
 def allSites(request):
     dirname = os.path.dirname(__file__)+"/Misc/"
@@ -67,7 +73,7 @@ def allSites(request):
     doc = template.render({'sites': sites})
     return HttpResponse(doc)
 
-def deleteSite(request): # ------------------->> NOT WORKING
+def deleteSite(request):
     # Get the parameter
     site = request.GET['site']
     # Site is a string, so we need to convert it to a list
@@ -95,5 +101,5 @@ def deleteSite(request): # ------------------->> NOT WORKING
     with open(os.path.join(dirname, 'newsSites.json'), 'w') as f:
         json.dump(data, f)
 
-    # Return a h1
-    return HttpResponse('<h1>Site deleted</h1>')
+    # Return a script to reload the page
+    return HttpResponse('<script>window.location.href = "/allSites";</script>')
