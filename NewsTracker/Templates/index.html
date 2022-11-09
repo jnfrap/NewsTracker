@@ -13,28 +13,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js" integrity="sha512-naukR7I+Nk6gp7p5TMA4ycgfxaZBJ7MO5iC3Fp6ySQyKFHOGfpkSZkYVWV5R7u7cfAicxanwYQ5D1e17EfJcMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </head>
-<body style="background-color: #292c2e; color: rgb(207, 207, 207);">
+<body>
     <style>
-        input {
+        .dark-mode {
+            background-color: #292c2e;
+            color: rgb(207, 207, 207);
+        }
+        .dark-mode input {
             background-color: rgb(54, 54, 54) !important;
             color: rgb(207, 207, 207) !important;
         }
-        ::placeholder {
+        .dark-mode ::placeholder {
             color: rgb(151, 151, 151) !important;
         }
         ::-webkit-scrollbar {
-        width: 0.5em;
+            width: 0.5em;
         }
         ::-webkit-scrollbar-track{
-        background-color: #292c2e;
+            background-color: #292c2e;
         }
         ::-webkit-scrollbar-thumb{
-        background-color: #5a5a5a;
-        border-radius: 10px;
+            background-color: #5a5a5a;
+            border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb:hover{
-        background-color: rgb(109, 109, 109);
-        border-radius: 10px;
+            background-color: rgb(109, 109, 109);
+            border-radius: 10px;
         }
     </style>
     <div style="display: flex;">
@@ -194,6 +198,29 @@
                 </ul>
             </p>
         </div>
+    </div>
+    <div style="position: absolute; top: 1vh; right: 1vh;">
+        <!--Dark/Light theme button-->
+        <button id="themeButton" class="btn" onclick="changeTheme()"><i class="fa-solid fa-moon"></i></button>
+        <script>
+            var element = document.body;
+            element.classList.toggle("dark-mode");
+            var button = document.getElementById("themeButton");
+            button.classList.toggle("btn-dark");
+            button.classList.toggle("btn-light");
+            var icon = document.getElementById("themeIcon");
+            icon.classList.toggle("fa-moon");
+            icon.classList.toggle("fa-sun");
+            function changeTheme(){
+                element.classList.toggle("dark-mode");
+                button = document.getElementById("themeButton");
+                button.classList.toggle("btn-dark");
+                button.classList.toggle("btn-light");
+                icon = document.getElementById("themeIcon");
+                icon.classList.toggle("fa-moon");
+                icon.classList.toggle("fa-sun");
+            }
+        </script>
     </div>
 </body>
 </html>
