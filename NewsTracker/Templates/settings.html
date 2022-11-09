@@ -13,28 +13,38 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js" integrity="sha512-naukR7I+Nk6gp7p5TMA4ycgfxaZBJ7MO5iC3Fp6ySQyKFHOGfpkSZkYVWV5R7u7cfAicxanwYQ5D1e17EfJcMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-    <form action="/response/" method="GET" id="siteForm">
-        <table>
-            <thead>
-                <tr>
-                    <th>Site</th>
-                    <th>Schedule</th>
-                    <th>Active</th>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Site</th>
+                <th>Schedule</th>
+                <th>Active</th>
+                <th>Update?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--Loop for each site-->
+            {% for site in sites %}
+                <tr><!--WIP-->
+                    <form action="/saveSettings/" method="GET">
+                        <input type="hidden" value="{{ site.0 }}" name="id">
+                        <td>{{ site.1 }}</td>
+                        <td>
+                            <input type="time" name="schedule" value="{{ site.2 }}">
+                        </td>
+                        <td>
+                            <input type="checkbox" name="activate" {% if site.3 == 'on' %}checked{% endif %}>
+                        </td>
+                        <td>
+                            <button type="submit" name="update" value="{{ site.0 }}"><i class="fas fa-sync"></i></button>
+                        </td>
+                    </form>
                 </tr>
-            </thead>
-            <tbody>
-                <!--Loop for each site-->
-                {% for site in sites %}
-                    <tr><!--WIP-->
-                        <td>{{ site.0 }}</td><!--Name (text)-->
-                        <td>{{ site.1 }}</td><!--Schedule (time)-->
-                        <td>{{ site.2 }}</td><!--Active (checkbox)-->
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </form>
-    
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="/" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back</a>
     
 </body>
 </html>

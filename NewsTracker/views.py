@@ -33,11 +33,11 @@ def response(request):
     dirname = os.path.dirname(__file__)+"/Misc/"
     if not os.path.exists(os.path.join(dirname, 'newsSites.json')):
         with open(os.path.join(dirname, 'newsSites.json'), 'w') as f:
-            json.dump([{'mainUrl': main_url, 'newsUrl': url, 'newsTag': news_tag, 'newsType': news_type, 'newsClass': news_class, 'contentTag': news_content_tag, 'contentType': news_content_type, 'contentClass': news_content_class, 'imgsTag': imgs_tag, 'imgsType': img_type, 'imgsClass': imgs_class, 'titleTag': title_tag, 'titleType': title_type, 'titleClass': title_class, 'subtitleTag': subtitle_tag, 'subtitleType': subtitle_type, 'subtitleClass': subtitle_class, 'directory': save_path, 'schedule': '0 0 * * *', 'activate': False}], f)
+            json.dump([{'mainUrl': main_url, 'newsUrl': url, 'newsTag': news_tag, 'newsType': news_type, 'newsClass': news_class, 'contentTag': news_content_tag, 'contentType': news_content_type, 'contentClass': news_content_class, 'imgsTag': imgs_tag, 'imgsType': img_type, 'imgsClass': imgs_class, 'titleTag': title_tag, 'titleType': title_type, 'titleClass': title_class, 'subtitleTag': subtitle_tag, 'subtitleType': subtitle_type, 'subtitleClass': subtitle_class, 'directory': save_path, 'schedule': '12:00', 'activate': 'off', 'id': '0'}], f)
     else:
         with open(os.path.join(dirname, 'newsSites.json'), 'r') as f:
             data = json.load(f)
-        data.append({'mainUrl': main_url, 'newsUrl': url, 'newsTag': news_tag, 'newsType': news_type, 'newsClass': news_class, 'contentTag': news_content_tag, 'contentType': news_content_type, 'contentClass': news_content_class, 'imgsTag': imgs_tag, 'imgsType': img_type, 'imgsClass': imgs_class, 'titleTag': title_tag, 'titleType': title_type, 'titleClass': title_class, 'subtitleTag': subtitle_tag, 'subtitleType': subtitle_type, 'subtitleClass': subtitle_class, 'directory': save_path, 'schedule': '0 0 * * *', 'activate': False})
+        data.append({'mainUrl': main_url, 'newsUrl': url, 'newsTag': news_tag, 'newsType': news_type, 'newsClass': news_class, 'contentTag': news_content_tag, 'contentType': news_content_type, 'contentClass': news_content_class, 'imgsTag': imgs_tag, 'imgsType': img_type, 'imgsClass': imgs_class, 'titleTag': title_tag, 'titleType': title_type, 'titleClass': title_class, 'subtitleTag': subtitle_tag, 'subtitleType': subtitle_type, 'subtitleClass': subtitle_class, 'directory': save_path, 'schedule': '12:00', 'activate': 'off', 'id': str(len(data))})
         with open(os.path.join(dirname, 'newsSites.json'), 'w') as f:
             json.dump(data, f)
 
@@ -97,6 +97,10 @@ def deleteSite(request):
             data.pop(i)
             break
     
+    # Reassign the ids
+    for i in range(len(data)):
+        data[i]['id'] = str(i)
+
     # Save the json
     with open(os.path.join(dirname, 'newsSites.json'), 'w') as f:
         json.dump(data, f)
@@ -154,13 +158,37 @@ def settings(request):
 
     sites = []
     for site in data:
-        site = []
-        site.append(data['newsUrl'])
-        site.append(data['schedule'])
-        site.append(data['activate'])
-        sites.append(site)
+        sites.append([site['id'], site['newsUrl'], site['schedule'], site['activate']])
     
     # Send sites to the template
     template = loader.get_template('settings.html')
     doc = template.render({'sites': sites})
     return HttpResponse(doc)
+
+def saveSettings(request):
+    # Get the parameters
+    id = request.GET['id']
+    schedule = request.GET['schedule']
+    try:
+        activate = request.GET['activate']
+    except:
+        activate = 'off'
+
+    # Get the json
+    dirname = os.path.dirname(__file__)+"/Misc/"
+    with open(os.path.join(dirname, 'newsSites.json'), 'r') as f:
+        data = json.load(f)
+
+    # Change the values of the json
+    for i in range(len(data)):
+        if data[i]['id'] == id:
+            data[i]['schedule'] = schedule
+            data[i]['activate'] = activate
+            break
+
+    # Save the json
+    with open(os.path.join(dirname, 'newsSites.json'), 'w') as f:
+        json.dump(data, f)
+
+    # Return a script to reload the page
+    return HttpResponse('<script>window.location.href = "/settings";</script>')

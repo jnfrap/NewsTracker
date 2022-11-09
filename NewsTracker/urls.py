@@ -26,4 +26,5 @@ urlpatterns = [
     path('deleteSite/', deleteSite),
     path('testSite/', testSite),
     path('settings/', settings),
+    path('saveSettings/', saveSettings),
 ]
