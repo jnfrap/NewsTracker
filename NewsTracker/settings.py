@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-8azui4&_44#*$gr5p+h_bwmc^^3ginnh&kldh80=g9=23sbi7#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '25.39.152.127',
+]
 
 
 # Application definition
@@ -55,7 +57,7 @@ ROOT_URLCONF = 'NewsTracker.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.dirname(__file__)+"\\Templates"],
+        'DIRS': [os.path.dirname(__file__)+"/Templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

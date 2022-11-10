@@ -5,17 +5,17 @@ def getNews(main_url, url, news_tag, news_type, news_class, news_content_tag, ne
     #Relative path
     dirname = os.path.dirname(__file__)
     # Save patch
-    save_path = dirname+'\\output\\'+directory+'\\'
+    save_path = dirname+'/output/'+directory+'/'
     # Create output folder if not exists
     if not os.path.exists(os.path.join(dirname, 'output')):
         os.makedirs(os.path.join(dirname, 'output'), exist_ok=True)
 
     # Create the folder to save the news if not exists
-    os.makedirs(os.path.join(dirname+'\\output', directory), exist_ok=True)
+    os.makedirs(os.path.join(dirname+'/output', directory), exist_ok=True)
 
     # Delete all files in dirname+'\\output\\'+directory+'\\'
-    for filename in os.listdir(dirname+'\\output\\'+directory+'\\'):
-        file_path = os.path.join(dirname+'\\output\\'+directory+'\\', filename)
+    for filename in os.listdir(dirname+'/output/'+directory+'/'):
+        file_path = os.path.join(dirname+'/output/'+directory+'/', filename)
         try:
             if os.path.isfile(file_path) or os.path.islink(file_path):
                 os.unlink(file_path)
