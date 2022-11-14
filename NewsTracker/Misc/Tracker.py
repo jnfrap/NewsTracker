@@ -1,4 +1,4 @@
-import requests, urllib.request, json, os, shutil
+import requests, urllib.request, json, os, shutil, traceback, ssl
 from bs4 import BeautifulSoup
 
 def getNews(main_url, url, news_tag, news_type, news_class, news_content_tag, news_content_type, news_content_class, imgs_tag, img_type, imgs_class, title_tag, title_type, title_class, subtitle_tag, subtitle_type, subtitle_class, directory):
@@ -131,7 +131,9 @@ def getNews(main_url, url, news_tag, news_type, news_class, news_content_tag, ne
             if idf != placeholder_id:
                 n=0
                 placeholder_id = idf
+            ssl._create_default_https_context = ssl._create_unverified_context
             urllib.request.urlretrieve(url, save_path+"img_"+str(idf)+"_"+str(n)+'.jpg')
             n+=1
         except:
+            traceback.print_exc()
             pass
