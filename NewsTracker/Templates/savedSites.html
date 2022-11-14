@@ -57,7 +57,7 @@
             {% for site in sites %}
                 <tr>
                     <td>
-                        <form action="/deleteSite/" method="GET">
+                        <form action="/deleteSite/" method="GET" onsubmit="return confirm('Do you really want to submit the form?');">
                             <input type="hidden" name="site" id="site" value="{{site}}">
                             <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                         </form>
