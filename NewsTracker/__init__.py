@@ -56,7 +56,7 @@ def run_test():
         # Wait 1 minutes
         time.sleep(60)
         # Check if working
-        print("Working...")
+        #print("Working...")
         # Reload the json file
         sitesFormated = loadJson()
         # Get actual hour and minute
