@@ -45,6 +45,7 @@ def response(request):
     return HttpResponse('<script>alert("Site added successfully"); window.location.href = "/";</script>')
 
 def download(request):
+    # Get the sites from newsSites.json and download it with getNews()
     dirname = os.path.dirname(__file__)+"/Misc/"
     with open(os.path.join(dirname, 'newsSites.json'), 'r') as f:
         data = json.load(f)
@@ -59,6 +60,7 @@ def download(request):
         return response
 
 def allSites(request):
+    # Get the content of newsSites.json
     dirname = os.path.dirname(__file__)+"/Misc/"
     with open(os.path.join(dirname, 'newsSites.json'), 'r') as f:
         data = json.load(f)

@@ -1,4 +1,4 @@
-import requests, urllib.request, json, os, shutil, traceback, ssl
+import requests, urllib.request, json, os, traceback, ssl
 from bs4 import BeautifulSoup
 
 def getNews(main_url, url, news_tag, news_type, news_class, news_content_tag, news_content_type, news_content_class, imgs_tag, img_type, imgs_class, title_tag, title_type, title_class, subtitle_tag, subtitle_type, subtitle_class, directory):
@@ -86,7 +86,7 @@ def getNews(main_url, url, news_tag, news_type, news_class, news_content_tag, ne
             # Get the title
             title = soup.find(title_tag, attrs={title_type: title_class})
             titleText = title.text
-            # Check if the title is in the json file
+            # Check if the title is in the json file, if so, do nothing
             if titlesInJson.count(titleText) == 0:
                 # Get the content
                 try:
