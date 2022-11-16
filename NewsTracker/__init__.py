@@ -75,7 +75,9 @@ def run_test():
 
                 # If actual hour and minute are equal to the schedule hour and minute
                 if hour == scheduleHour and minute == scheduleMinute:
+                    print("Getting news from "+site[0])
                     getNews(site[0], site[1], site[2], site[3], site[4], site[5], site[6], site[7], site[8], site[9], site[10], site[11], site[12], site[13], site[14], site[15], site[16], site[17])
+                    print("News from "+site[0]+" saved")
 
 # Start the thread if is not started
 try:
