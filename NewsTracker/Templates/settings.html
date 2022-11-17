@@ -33,6 +33,8 @@
         <thead>
             <tr>
                 <th>Site</th>
+                <th>Days limit</th>
+                <th>News limit</th>
                 <th>Schedule</th>
                 <th>Active</th>
                 <th>Update?</th>
@@ -45,6 +47,8 @@
                     <form action="/saveSettings/" method="GET">
                         <input type="hidden" value="{{ site.0 }}" name="id">
                         <td>{{ site.1 }}</td>
+                        <td><input type="number" name="days" value="{{ site.4 }}"></td>
+                        <td><input type="number" name="news" value="{{ site.5 }}"></td>
                         <td>
                             <input type="time" name="schedule" value="{{ site.2 }}">
                         </td>

@@ -153,14 +153,14 @@ def testSite(request):
             return response
 
 def settings(request):
-    # Get newsSites.json, get the fields newsUrl, schedule and activate. Save it in variables
+    # Get newsSites.json, get the fields newsUrl, schedule, activate, d_limit, n_limit. Save it in variables
     dirname = os.path.dirname(__file__)+"/Misc/"
     with open(os.path.join(dirname, 'newsSites.json'), 'r') as f:
         data = json.load(f)
 
     sites = []
     for site in data:
-        sites.append([site['id'], site['newsUrl'], site['schedule'], site['activate']])
+        sites.append([site['id'], site['newsUrl'], site['schedule'], site['activate'], site['d_limit'], site['n_limit']])
     
     # Send sites to the template
     template = loader.get_template('settings.html')
@@ -171,6 +171,8 @@ def saveSettings(request):
     # Get the parameters
     id = request.GET['id']
     schedule = request.GET['schedule']
+    ndays = request.GET['days']
+    nnews = request.GET['news']
     try:
         activate = request.GET['activate']
     except:
@@ -186,6 +188,8 @@ def saveSettings(request):
         if data[i]['id'] == id:
             data[i]['schedule'] = schedule
             data[i]['activate'] = activate
+            data[i]['d_limit'] = ndays
+            data[i]['n_limit'] = nnews
             break
 
     # Save the json
