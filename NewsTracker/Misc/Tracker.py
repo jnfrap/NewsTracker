@@ -176,7 +176,6 @@ def getNews(main_url, url, news_tag, news_type, news_class, news_content_tag, ne
                 diff = now - date
                 # If the difference is greater than 3 days, remove the news
                 if diff.days > days_limit:
-                    print('Removing news: '+m['title'])
                     # Remove the images of the news
                     for filename in os.listdir(save_path):
                         if filename.endswith(".jpg"):
