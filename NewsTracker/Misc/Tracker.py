@@ -1,5 +1,6 @@
 import requests, urllib.request, json, os, traceback, ssl
 from bs4 import BeautifulSoup
+from datetime import datetime
 
 def getNews(main_url, url, news_tag, news_type, news_class, news_content_tag, news_content_type, news_content_class, imgs_tag, img_type, imgs_class, title_tag, title_type, title_class, subtitle_tag, subtitle_type, subtitle_class, directory):
     #Relative path
@@ -12,17 +13,6 @@ def getNews(main_url, url, news_tag, news_type, news_class, news_content_tag, ne
 
     # Create the folder to save the news if not exists
     os.makedirs(os.path.join(dirname+'/output', directory), exist_ok=True)
-
-    # Delete all files in dirname+'\\output\\'+directory+'\\'
-    """for filename in os.listdir(dirname+'/output/'+directory+'/'):
-        file_path = os.path.join(dirname+'/output/'+directory+'/', filename)
-        try:
-            if os.path.isfile(file_path) or os.path.islink(file_path):
-                os.unlink(file_path)
-            elif os.path.isdir(file_path):
-                shutil.rmtree(file_path)
-        except Exception as e:
-            print('Failed to delete %s. Reason: %s' % (file_path, e))"""
 
     headers = {
         'cache-control': "no-cache"
@@ -105,7 +95,11 @@ def getNews(main_url, url, news_tag, news_type, news_class, news_content_tag, ne
                     contentText = contentText.replace(titleText, '')
                 if contentText.find(subtitleText) != -1:
                     contentText = contentText.replace(subtitleText, '')
-                main.append({'id': main_id, 'title': titleText, 'subtitle': subtitleText, 'content': contentText})
+                # Get current date
+                now = datetime.now()
+                date = now.strftime("%d/%m/%Y %H:%M:%S")
+                # Append the new to the array
+                main.append({'id': main_id, 'title': titleText, 'subtitle': subtitleText, 'content': contentText, 'date': date})
                 # Get the div with the images
                 imgdiv = soup.find(imgs_tag, attrs={img_type: imgs_class})
                 # Get all the images from the div
@@ -156,17 +150,42 @@ def getNews(main_url, url, news_tag, news_type, news_class, news_content_tag, ne
             # Rename the image
             os.rename(save_path+filename, save_path+filename.split('_')[0]+'_'+str(id)+'_'+filename.split('_')[2])
 
-    # If there are more news than the limit, remove the last ones
-    news_limit = 50
-    if len(main) > news_limit:
-        main = main[:news_limit]
-        # Remove the images of the last news
-        for filename in os.listdir(save_path):
-            if filename.endswith(".jpg"):
-                # Get the id of the image, is the first number of the name
-                id = int(filename.split('_')[1])
-                if id >= news_limit:
-                    os.remove(save_path+filename)
+    # News limit
+    news_limit = -1 # -1 for no limit
+    if news_limit > -1:
+        if len(main) > news_limit:
+            main = main[:news_limit]
+            # Remove the images of the last news
+            for filename in os.listdir(save_path):
+                if filename.endswith(".jpg"):
+                    # Get the id of the image, is the first number of the name
+                    id = int(filename.split('_')[1])
+                    if id >= news_limit:
+                        os.remove(save_path+filename)
+    
+    # Days limit
+    days_limit = 3 # -1 for no limit
+    if days_limit > -1:
+        for m in main:
+            if m['date'] != '':
+                # Get the date of the news
+                date = datetime.strptime(m['date'], "%d/%m/%Y %H:%M:%S")
+                # Get the current date
+                now = datetime.now()
+                # Get the difference between the dates
+                diff = now - date
+                # If the difference is greater than 3 days, remove the news
+                if diff.days > days_limit:
+                    print('Removing news: '+m['title'])
+                    # Remove the images of the news
+                    for filename in os.listdir(save_path):
+                        if filename.endswith(".jpg"):
+                            # Get the id of the image, is the first number of the name
+                            id = int(filename.split('_')[1])
+                            if id == m['id']:
+                                os.remove(save_path + filename)
+                    # Remove the news from main
+                    main.remove(m)
 
     # Save titles and content in a json file
     with open(save_path+'output.json', 'w', encoding='utf-8') as f:
