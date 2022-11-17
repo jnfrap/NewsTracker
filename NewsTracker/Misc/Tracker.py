@@ -2,7 +2,7 @@ import requests, urllib.request, json, os, traceback, ssl
 from bs4 import BeautifulSoup
 from datetime import datetime
 
-def getNews(main_url, url, news_tag, news_type, news_class, news_content_tag, news_content_type, news_content_class, imgs_tag, img_type, imgs_class, title_tag, title_type, title_class, subtitle_tag, subtitle_type, subtitle_class, directory):
+def getNews(main_url, url, news_tag, news_type, news_class, news_content_tag, news_content_type, news_content_class, imgs_tag, img_type, imgs_class, title_tag, title_type, title_class, subtitle_tag, subtitle_type, subtitle_class, directory, d_limit, n_limit):
     #Relative path
     dirname = os.path.dirname(__file__)
     # Save patch
@@ -151,7 +151,7 @@ def getNews(main_url, url, news_tag, news_type, news_class, news_content_tag, ne
             os.rename(save_path+filename, save_path+filename.split('_')[0]+'_'+str(id)+'_'+filename.split('_')[2])
 
     # News limit
-    news_limit = -1 # -1 for no limit
+    news_limit = n_limit # -1 for no limit
     if news_limit > -1:
         if len(main) > news_limit:
             main = main[:news_limit]
@@ -164,7 +164,7 @@ def getNews(main_url, url, news_tag, news_type, news_class, news_content_tag, ne
                         os.remove(save_path+filename)
     
     # Days limit
-    days_limit = 3 # -1 for no limit
+    days_limit = d_limit # -1 for no limit
     if days_limit > -1:
         for m in main:
             if m['date'] != '':

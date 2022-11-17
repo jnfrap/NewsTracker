@@ -33,11 +33,11 @@ def response(request):
     dirname = os.path.dirname(__file__)+"/Misc/"
     if not os.path.exists(os.path.join(dirname, 'newsSites.json')):
         with open(os.path.join(dirname, 'newsSites.json'), 'w') as f:
-            json.dump([{'mainUrl': main_url, 'newsUrl': url, 'newsTag': news_tag, 'newsType': news_type, 'newsClass': news_class, 'contentTag': news_content_tag, 'contentType': news_content_type, 'contentClass': news_content_class, 'imgsTag': imgs_tag, 'imgsType': img_type, 'imgsClass': imgs_class, 'titleTag': title_tag, 'titleType': title_type, 'titleClass': title_class, 'subtitleTag': subtitle_tag, 'subtitleType': subtitle_type, 'subtitleClass': subtitle_class, 'directory': save_path, 'schedule': '12:00', 'activate': 'off', 'id': '0'}], f)
+            json.dump([{'mainUrl': main_url, 'newsUrl': url, 'newsTag': news_tag, 'newsType': news_type, 'newsClass': news_class, 'contentTag': news_content_tag, 'contentType': news_content_type, 'contentClass': news_content_class, 'imgsTag': imgs_tag, 'imgsType': img_type, 'imgsClass': imgs_class, 'titleTag': title_tag, 'titleType': title_type, 'titleClass': title_class, 'subtitleTag': subtitle_tag, 'subtitleType': subtitle_type, 'subtitleClass': subtitle_class, 'directory': save_path, 'schedule': '12:00', 'activate': 'off', 'd_limit': '3', 'n_limit': '-1', 'id': '0'}], f)
     else:
         with open(os.path.join(dirname, 'newsSites.json'), 'r') as f:
             data = json.load(f)
-        data.append({'mainUrl': main_url, 'newsUrl': url, 'newsTag': news_tag, 'newsType': news_type, 'newsClass': news_class, 'contentTag': news_content_tag, 'contentType': news_content_type, 'contentClass': news_content_class, 'imgsTag': imgs_tag, 'imgsType': img_type, 'imgsClass': imgs_class, 'titleTag': title_tag, 'titleType': title_type, 'titleClass': title_class, 'subtitleTag': subtitle_tag, 'subtitleType': subtitle_type, 'subtitleClass': subtitle_class, 'directory': save_path, 'schedule': '12:00', 'activate': 'off', 'id': str(len(data))})
+        data.append({'mainUrl': main_url, 'newsUrl': url, 'newsTag': news_tag, 'newsType': news_type, 'newsClass': news_class, 'contentTag': news_content_tag, 'contentType': news_content_type, 'contentClass': news_content_class, 'imgsTag': imgs_tag, 'imgsType': img_type, 'imgsClass': imgs_class, 'titleTag': title_tag, 'titleType': title_type, 'titleClass': title_class, 'subtitleTag': subtitle_tag, 'subtitleType': subtitle_type, 'subtitleClass': subtitle_class, 'directory': save_path, 'schedule': '12:00', 'activate': 'off', 'd_limit': '3', 'n_limit': '-1', 'id': str(len(data))})
         with open(os.path.join(dirname, 'newsSites.json'), 'w') as f:
             json.dump(data, f)
 
@@ -50,7 +50,7 @@ def download(request):
     with open(os.path.join(dirname, 'newsSites.json'), 'r') as f:
         data = json.load(f)
     for site in data:
-        getNews(site['mainUrl'], site['newsUrl'], site['newsTag'], site['newsType'], site['newsClass'], site['contentTag'], site['contentType'], site['contentClass'], site['imgsTag'], site['imgsType'], site['imgsClass'], site['titleTag'], site['titleType'], site['titleClass'], site['subtitleTag'], site['subtitleType'], site['subtitleClass'], site['directory'])
+        getNews(site['mainUrl'], site['newsUrl'], site['newsTag'], site['newsType'], site['newsClass'], site['contentTag'], site['contentType'], site['contentClass'], site['imgsTag'], site['imgsType'], site['imgsClass'], site['titleTag'], site['titleType'], site['titleClass'], site['subtitleTag'], site['subtitleType'], site['subtitleClass'], site['directory'], int(site['d_limit']), int(site['n_limit']))
     
     # Compress the Misc/output folder and send it to the user to download
     shutil.make_archive('output', 'zip', os.path.join(dirname, 'output'))
@@ -133,7 +133,7 @@ def testSite(request):
 
     try:
         # Get the news
-        getNews(main_url, url, news_tag, news_type, news_class, news_content_tag, news_content_type, news_content_class, imgs_tag, img_type, imgs_class, title_tag, title_type, title_class, subtitle_tag, subtitle_type, subtitle_class, save_path)
+        getNews(main_url, url, news_tag, news_type, news_class, news_content_tag, news_content_type, news_content_class, imgs_tag, img_type, imgs_class, title_tag, title_type, title_class, subtitle_tag, subtitle_type, subtitle_class, save_path, -1, -1)
 
         # Compress the Misc/output/save_path folder and send it to the user to download
         shutil.make_archive('output', 'zip', os.path.join(os.path.dirname(__file__)+"/Misc/output/", save_path))

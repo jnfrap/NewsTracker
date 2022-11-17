@@ -36,6 +36,8 @@ def loadJson():
         schedule = site['schedule']
         activate = site['activate']
         id = site['id']
+        d_limit = site['d_limit']
+        n_limit = site['n_limit']
 
         # Create a boolean variable and set it to True if activate is 'on'
         if activate == 'on':
@@ -47,7 +49,7 @@ def loadJson():
         id = int(id)
 
         # Save all parameters in sitesFormated
-        sitesFormated.append([mainUrl, newsUrl, newsTag, newsType, newsClass, contentTag, contentType, contentClass, imgsTag, imgsType, imgsClass, titleTag, titleType, titleClass, subtitleTag, subtitleType, subtitleClass, directory, schedule, activate, id])
+        sitesFormated.append([mainUrl, newsUrl, newsTag, newsType, newsClass, contentTag, contentType, contentClass, imgsTag, imgsType, imgsClass, titleTag, titleType, titleClass, subtitleTag, subtitleType, subtitleClass, directory, schedule, activate, id, d_limit, n_limit])
     return sitesFormated
     
 # Thread
@@ -76,7 +78,7 @@ def run_test():
                 # If actual hour and minute are equal to the schedule hour and minute then get the news
                 if hour == scheduleHour and minute == scheduleMinute:
                     print("Getting news from "+site[0])
-                    getNews(site[0], site[1], site[2], site[3], site[4], site[5], site[6], site[7], site[8], site[9], site[10], site[11], site[12], site[13], site[14], site[15], site[16], site[17])
+                    getNews(site[0], site[1], site[2], site[3], site[4], site[5], site[6], site[7], site[8], site[9], site[10], site[11], site[12], site[13], site[14], site[15], site[16], site[17], int(site[21]), int(site[22]))
                     print("News from "+site[0]+" saved")
 
 # Start the thread if is not started
