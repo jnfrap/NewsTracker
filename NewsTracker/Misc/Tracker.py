@@ -133,7 +133,6 @@ def getNews(main_url, url, news_tag, news_type, news_class, news_content_tag, ne
     # If the json file has content, reassign the id and add the new news
     phId = -1
     if os.path.exists(save_path+'output.json'):
-        print('File exists')
         with open(save_path+'output.json') as json_file:
             data = json.load(json_file)
             for d in data:
