@@ -156,6 +156,18 @@ def getNews(main_url, url, news_tag, news_type, news_class, news_content_tag, ne
             # Rename the image
             os.rename(save_path+filename, save_path+filename.split('_')[0]+'_'+str(id)+'_'+filename.split('_')[2])
 
+    # If there are more news than the limit, remove the last ones
+    news_limit = 50
+    if len(main) > news_limit:
+        main = main[:news_limit]
+        # Remove the images of the last news
+        for filename in os.listdir(save_path):
+            if filename.endswith(".jpg"):
+                # Get the id of the image, is the first number of the name
+                id = int(filename.split('_')[1])
+                if id >= news_limit:
+                    os.remove(save_path+filename)
+
     # Save titles and content in a json file
     with open(save_path+'output.json', 'w', encoding='utf-8') as f:
         json.dump(main, f, ensure_ascii=False, indent=4)
