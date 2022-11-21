@@ -32,6 +32,7 @@
         <thead>
             <tr>
                 <th scope="col">Delete?</th>
+                <th scope="col">Duplicate?</th>
                 <th scope="col">Main url</th>
                 <th scope="col">News url</th>
                 <th scope="col">News list tag</th>
@@ -49,7 +50,8 @@
                 <th scope="col">Images tag</th>
                 <th scope="col">Images type</th>
                 <th scope="col">Images class</th>
-                <th scope="col">Directory name</th>
+                <th scope="col">Directory</th>
+                <th scope="col">ID</th>
             </tr>
         </thead>
         <tbody>
@@ -57,11 +59,16 @@
             {% for site in sites %}
                 <tr>
                     <td>
-                        <form action="/deleteSite/" method="GET" onsubmit="return confirm('Do you really want to submit the form?');">
+                        <form action="/deleteSite/" method="GET" onsubmit="return confirm('Do you really want to delete the site?');">
                             <input type="hidden" name="site" id="site" value="{{site.18}}">
                             <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                         </form>
                     </td>
+                    <td>
+                        <form action="/duplicateSite/" method="GET" onsubmit="return confirm('Do you really want to duplicate the site?');">
+                            <input type="hidden" name="site" id="site" value="{{site.18}}">
+                            <button type="submit" class="btn btn-warning"><i class="fa-solid fa-copy"></i></button>
+                        </form>
                 {% for s in site %}
                     <td>{{ s }}</td>
                 {% endfor %}

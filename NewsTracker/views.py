@@ -189,3 +189,29 @@ def saveSettings(request):
 
     # Return a script to reload the page
     return HttpResponse('<script>window.location.href = "/settings";</script>')
+
+def duplicateSite(request):
+    # Get the parameter
+    id = request.GET['site']
+    
+    # Get the json
+    dirname = os.path.dirname(__file__)+"/Misc/"
+    with open(os.path.join(dirname, 'newsSites.json'), 'r') as f:
+        data = json.load(f)
+    
+    # Duplicate the site
+    for site in data:
+        if site['id'] == id:
+            data.append(site)
+            break
+
+    # Reassign the ids
+    for i in range(len(data)):
+        data[i]['id'] = str(i)
+
+    # Save the json
+    with open(os.path.join(dirname, 'newsSites.json'), 'w') as f:
+        json.dump(data, f)
+
+    # Return a script to reload the page
+    return HttpResponse('<script>window.location.href = "/allSites";</script>')

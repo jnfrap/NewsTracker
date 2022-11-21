@@ -27,4 +27,5 @@ urlpatterns = [
     path('testSite/', testSite),
     path('settings/', settings),
     path('saveSettings/', saveSettings),
+    path('duplicateSite/', duplicateSite),
 ]
